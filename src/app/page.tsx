@@ -1,6 +1,5 @@
 import { MovieCard } from "@/components/MovieCard";
 import { mockMovies } from "@/utils/mocks/movies";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -45,7 +44,7 @@ export default function Home() {
       <main className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {mockMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} genres={["etes", "test"]} />
+            <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
       </main>

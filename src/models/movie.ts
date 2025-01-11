@@ -1,3 +1,5 @@
+import { Genre } from "./genre";
+
 export type Movie = {
   id: number;
   title: string;
@@ -7,7 +9,9 @@ export type Movie = {
   genres: Genre[];
 };
 
-export type Genre = {
-  id: number;
-  name: string;
+export const movieFactory = () => {
+  return {
+    index: () => {},
+    show: () => {},
+  };
 };

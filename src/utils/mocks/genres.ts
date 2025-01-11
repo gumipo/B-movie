@@ -1,4 +1,4 @@
-import { Genre } from "@/models/movie";
+import { Genre } from "@/models/genre";
 
 export const mockGenres: Genre[] = [
   {
