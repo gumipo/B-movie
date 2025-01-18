@@ -1,4 +1,9 @@
+import {
+  movieRepository,
+  MovieRepository,
+} from "@/repositories/movieRepository";
 import { Genre } from "./genre";
+import { PaginationQuery } from "@/types/query";
 
 export type Movie = {
   id: number;
@@ -9,9 +14,14 @@ export type Movie = {
   genres: Genre[];
 };
 
-export const movieFactory = () => {
+export const movieFactory = (repository: MovieRepository = movieRepository) => {
   return {
-    index: () => {},
+    index: (
+      searchQuery?: Partial<{ genre_id: number[] }>,
+      paginationQuery?: Partial<PaginationQuery>
+    ) => {
+      return;
+    },
     show: () => {},
   };
 };

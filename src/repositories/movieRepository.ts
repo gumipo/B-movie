@@ -1,10 +1,23 @@
 import { Movie } from "@/models/movie";
+import { PaginationQuery } from "@/types/query";
 
-type MovieRepository = {
-  index: () => Promise<Movie[]>;
+export type MovieRepository = {
+  index: (
+    searchQuery?: Partial<{ genre_id: number[] }>,
+    paginationQuery?: Partial<PaginationQuery>
+  ) => Promise<Movie[]>;
   show: (id: number) => Promise<Movie>;
 };
 
-const index = () => {};
+const index: MovieRepository["index"] = async () => {
+  return [];
+};
 
-const show = (id: number) => {};
+const show: MovieRepository["show"] = async (id: number) => {
+  return {};
+};
+
+export const movieRepository: MovieRepository = {
+  index,
+  show,
+};
