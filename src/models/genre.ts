@@ -1,12 +1,17 @@
-import { PaginationQuery } from "@/types/query";
+import {
+  genreRepository,
+  GenreRepository,
+} from "@/repositories/genreRepository";
 
 export type Genre = {
   id: number;
   name: string;
 };
 
-export const genreFactory = () => {
+export const genrefactory = (repository: GenreRepository = genreRepository) => {
   return {
-    index: () => {},
+    index: () => {
+      repository.index();
+    },
   };
 };

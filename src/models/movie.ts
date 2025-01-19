@@ -20,8 +20,10 @@ export const movieFactory = (repository: MovieRepository = movieRepository) => {
       searchQuery?: Partial<{ genre_id: number[] }>,
       paginationQuery?: Partial<PaginationQuery>
     ) => {
-      return;
+      return repository.index(searchQuery, paginationQuery);
     },
-    show: () => {},
+    show: (id: number) => {
+      return repository.show(id);
+    },
   };
 };
