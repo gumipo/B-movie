@@ -6,18 +6,18 @@ export type MovieRepository = {
     searchQuery?: Partial<{ genre_id: number[] }>,
     paginationQuery?: Partial<PaginationQuery>
   ) => Promise<Movie[]>;
-  show: (id: number) => Promise<Movie>;
+  // show: (id: number) => Promise<Movie>;
 };
 
 const index: MovieRepository["index"] = async () => {
   return [];
 };
 
-const show: MovieRepository["show"] = async (id: number) => {
-  return {};
-};
+// const show: MovieRepository["show"] = async (id: number) => {
+//   return {};
+// };
 
 export const movieRepository: MovieRepository = {
   index,
-  show,
+  // show,
 };

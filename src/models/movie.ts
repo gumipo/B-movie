@@ -22,8 +22,8 @@ export const movieFactory = (repository: MovieRepository = movieRepository) => {
     ) => {
       return repository.index(searchQuery, paginationQuery);
     },
-    show: (id: number) => {
-      return repository.show(id);
-    },
+    // show: (id: number) => {
+    //   return repository.show(id);
+    // },
   };
 };
