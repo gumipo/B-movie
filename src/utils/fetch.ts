@@ -6,9 +6,7 @@ import { parseURLSearchParams } from "./query-param";
 interface Options<T = object> {
   params?: T;
   headers?: HeadersInit;
-  credentials?: Request["credentials"];
   validateStatus?: (status: number) => boolean;
-  isSetCookie?: boolean;
 }
 
 /** 絶対URLかどうかを判定する　*/
@@ -37,7 +35,6 @@ async function buildHeaders<T = HeadersInit>(
   body?: unknown
 ): Promise<HeadersInit> {
   const defaultHeaders: HeadersInit = {
-    cache: "no-store",
     Referer: process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000",
     Origin: process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000",
   };
@@ -50,20 +47,6 @@ async function buildHeaders<T = HeadersInit>(
     ...defaultHeaders,
     ...headers,
   };
-}
-
-/**
- * ローカル環境以外はセキュリティのためcredentialsをデフォルト値("same-origin")とする
- * @see https://developer.mozilla.org/ja/docs/Web/API/Request/credentials
- */
-function buildCredentials(
-  credentials?: Request["credentials"]
-): Request["credentials"] {
-  if (process.env.NODE_ENV !== "development" || !credentials) {
-    return "include";
-  }
-
-  return credentials;
 }
 
 /** リクエストボディを構築する */
@@ -88,11 +71,8 @@ function buildPathWithSearchParams<T = object>(path: string, params?: T) {
 }
 
 /** 通信処理を共通化した関数 */
-async function http<T>(
-  path: string,
-  config: RequestInit,
-  isSetCookie?: boolean
-): Promise<T> {
+async function http<T>(path: string, config: RequestInit): Promise<T> {
+  console.log(process.env.API_END_POINT);
   const request = new Request(
     // NEXT_PUBLIC_API_ROOTは必ず値が存在する想定なので `!` で型エラーを回避する
     buildFullPath(process.env.API_END_POINT!, path),
@@ -131,9 +111,7 @@ export async function get<T, U = object>(
     {
       method: "GET",
       headers: await buildHeaders(options?.headers),
-      credentials: buildCredentials(options?.credentials),
-    },
-    options?.isSetCookie
+    }
   );
 }
 
@@ -142,16 +120,11 @@ export async function post<T, U, V = object>(
   body: T,
   options?: Options<V>
 ): Promise<U> {
-  return http<U>(
-    path,
-    {
-      method: "POST",
-      headers: await buildHeaders(options?.headers, body),
-      body: buildRequestBody(body),
-      credentials: buildCredentials(options?.credentials),
-    },
-    options?.isSetCookie
-  );
+  return http<U>(path, {
+    method: "POST",
+    headers: await buildHeaders(options?.headers, body),
+    body: buildRequestBody(body),
+  });
 }
 
 export async function put<T, U = object>(
@@ -159,16 +132,11 @@ export async function put<T, U = object>(
   body: T,
   options?: Options<U>
 ): Promise<U> {
-  return http<U>(
-    path,
-    {
-      method: "PUT",
-      body: buildRequestBody(body),
-      headers: await buildHeaders(options?.headers, body),
-      credentials: buildCredentials(options?.credentials),
-    },
-    options?.isSetCookie
-  );
+  return http<U>(path, {
+    method: "PUT",
+    body: buildRequestBody(body),
+    headers: await buildHeaders(options?.headers, body),
+  });
 }
 
 // deleteはJSの予約語であるためdestroyとする
@@ -184,8 +152,6 @@ export async function destroy<T = object>(
     {
       method: "DELETE",
       headers: await buildHeaders(options?.headers),
-      credentials: buildCredentials(options?.credentials),
-    },
-    options?.isSetCookie
+    }
   );
 }

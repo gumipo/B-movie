@@ -10,7 +10,7 @@ export type Movie = {
   title: string;
   year: number;
   description: string;
-  image: string;
+  src: string;
   genres: Genre[];
 };
 
