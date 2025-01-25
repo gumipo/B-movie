@@ -19,7 +19,7 @@ export default async function IndexPage() {
           </div>
           <div className="p-6">
             <div className="flex justify-between items-start mb-4">
-              <h2 className="text-2xl font-bold">{movie.title}</h2>
+              <h2 className="text-2xl font-bold text-white">{movie.title}</h2>
             </div>
             <p className="text-gray-400 mb-4">{movie.description}</p>
             <div className="flex flex-wrap gap-4 text-sm text-gray-400"></div>
