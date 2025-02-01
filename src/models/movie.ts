@@ -2,7 +2,7 @@ import {
   movieRepository,
   MovieRepository,
 } from "@/repositories/movieRepository";
-import { Genre } from "./genre";
+import { Genre, MovieSearchQuery } from "./genre";
 import { PaginationQuery } from "@/types/query";
 
 export type Movie = {
@@ -17,7 +17,7 @@ export type Movie = {
 export const movieFactory = (repository: MovieRepository = movieRepository) => {
   return {
     index: (
-      searchQuery?: Partial<{ genre_id: number[] }>,
+      searchQuery?: Partial<MovieSearchQuery>,
       paginationQuery?: Partial<PaginationQuery>
     ) => {
       return repository.index(searchQuery, paginationQuery);

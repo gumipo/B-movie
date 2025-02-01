@@ -1,10 +1,11 @@
+import { MovieSearchQuery } from "@/models/genre";
 import { Movie } from "@/models/movie";
 import { PaginationQuery } from "@/types/query";
 import * as http from "@/utils/fetch";
 
 export type MovieRepository = {
   index: (
-    searchQuery?: Partial<{ genre_id: number[] }>,
+    searchQuery?: Partial<MovieSearchQuery>,
     paginationQuery?: Partial<PaginationQuery>
   ) => Promise<Movie[]>;
   show: (id: number) => Promise<Movie>;

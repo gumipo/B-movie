@@ -8,10 +8,15 @@ export type Genre = {
   name: string;
 };
 
-export const genrefactory = (repository: GenreRepository = genreRepository) => {
+export type MovieSearchQuery = {
+  name: string | undefined;
+  genre_id: string | undefined;
+};
+
+export const genreFactory = (repository: GenreRepository = genreRepository) => {
   return {
-    index: () => {
-      repository.index();
+    index: async () => {
+      return await repository.index();
     },
   };
 };
